@@ -9,7 +9,7 @@
 var warning = require('fbjs/lib/warning');
 
 var RNBanner = {
-  test: function() {
+  show: function() {
     warning('Not yet implemented for Android.');
   }
 };
