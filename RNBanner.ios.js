@@ -4,6 +4,8 @@
  */
 'use strict';
 
+import { processColor } from "react-native";
+
 var NativeRNBanner = require('NativeModules').RNBanner;
 
 /**
@@ -11,7 +13,16 @@ var NativeRNBanner = require('NativeModules').RNBanner;
  */
 
 export default {
-	show: (title) => {
-		NativeRNBanner.showToastWithTitle(title);
+	show: (title, subtitle, config) => {
+
+		let nativeConfig = {
+			...config
+		}
+
+		if (nativeConfig.backgroundColor) {
+			nativeConfig.backgroundColor = processColor(nativeConfig.backgroundColor)
+		}
+
+		NativeRNBanner.showToastWithTitle(title, subtitle, nativeConfig);
 	},
 }
