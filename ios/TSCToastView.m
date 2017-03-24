@@ -202,6 +202,20 @@
     self.titleLabel.textColor = textColour;
 }
 
+- (void)setTitleAttributes:(NSDictionary *)titleAttributes
+{
+    if (self.titleLabel.text) {
+        self.titleLabel.attributedText = [[NSAttributedString alloc] initWithString:self.titleLabel.text attributes:titleAttributes];
+    }
+}
+
+- (void)setSubTitleAttributes:(NSDictionary *)subTitleAttributes
+{
+    if (self.messageLabel.text) {
+        self.messageLabel.attributedText = [[NSAttributedString alloc] initWithString:self.messageLabel.text attributes:subTitleAttributes];
+    }
+}
+
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
     [super setBackgroundColor:backgroundColor];
@@ -222,6 +236,9 @@
 - (void)complete
 {
     self.coverWindow.hidden = true;
+    [self.coverWindow resignKeyWindow];
+    [self.coverWindow removeFromSuperview];
+    self.coverWindow = nil;
     [self removeFromSuperview];
     self.completion();
 }

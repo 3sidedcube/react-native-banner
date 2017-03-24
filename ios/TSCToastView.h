@@ -57,4 +57,14 @@ typedef void (^TSCToastDisplayCompletion)(void);
  */
 @property (nonatomic, assign) CGFloat visibleDuration UI_APPEARANCE_SELECTOR;
 
+/**
+ * The attributed text attributes for the title text
+ */
+@property (nonatomic, weak) NSDictionary *titleAttributes;
+
+/**
+ * The attributed text attributes for the subtitle text
+ */
+@property (nonatomic, weak) NSDictionary *subTitleAttributes;
+
 @end
