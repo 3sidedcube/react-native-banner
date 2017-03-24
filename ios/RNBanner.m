@@ -146,6 +146,14 @@ RCT_EXPORT_METHOD(showToastWithTitle:(NSString *)title subtitle:(NSString *)subt
         
         toastNotification.titleAttributes = [self textAttributesFromDictionary:config withPrefix:@"titleText" baseFont:[UIFont boldSystemFontOfSize:18]];
         toastNotification.subTitleAttributes = [self textAttributesFromDictionary:config withPrefix:@"subtitleText" baseFont:[UIFont systemFontOfSize:16]];
+        
+        if (config[@"padding"] && [config[@"padding"] isKindOfClass:[NSDictionary class]]) {
+            toastNotification.padding = [RCTConvert UIEdgeInsets:config[@"padding"]];
+        }
+        
+        if (config[@"titleSpacing"] && [config[@"titleSpacing"] isKindOfClass:[NSNumber class]]) {
+            toastNotification.titleSpacing = [RCTConvert CGFloat:config[@"titleSpacing"]];
+        }
     }
     
     

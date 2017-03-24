@@ -67,4 +67,17 @@ typedef void (^TSCToastDisplayCompletion)(void);
  */
 @property (nonatomic, weak) NSDictionary *subTitleAttributes;
 
+/**
+ * The padding around the TSCToastView
+ * @discussion defaults to (12,12,12,12)
+ */
+@property (nonatomic, assign) UIEdgeInsets padding;
+
+/**
+ * The spacing between the two titles
+ *
+ * @discussion defaults to 12pt
+ */
+@property (nonatomic, assign) CGFloat titleSpacing;
+
 @end

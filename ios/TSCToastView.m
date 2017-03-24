@@ -36,6 +36,7 @@
         self.titleLabel.font = [UIFont boldSystemFontOfSize:18];
         self.titleLabel.numberOfLines = 0;
         self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        self.titleSpacing = 12.0;
         
         self.messageLabel = [UILabel new];
         self.messageLabel.font = [UIFont systemFontOfSize:16];
@@ -43,6 +44,7 @@
         self.messageLabel.lineBreakMode = NSLineBreakByWordWrapping;
         
         self.imageView = [UIImageView new];
+        self.padding = kToastEdgeInsets;
         
         [self addSubview:self.imageView];
         [self addSubview:self.titleLabel];
@@ -169,11 +171,11 @@
 
 - (void)layout
 {
-    CGRect labelContainer = CGRectMake(kToastEdgeInsets.left, kToastEdgeInsets.top, self.frame.size.width - kToastEdgeInsets.left - kToastEdgeInsets.right, MAXFLOAT);
+    CGRect labelContainer = CGRectMake(self.padding.left, self.padding.top, self.frame.size.width - self.padding.left - self.padding.right, MAXFLOAT);
     
     if (self.imageView.image) { // If we have an image adjust how much room we have for the labels.
         
-        self.imageView.frame = CGRectMake(kToastEdgeInsets.left, 0, 38, 38);
+        self.imageView.frame = CGRectMake(self.padding.left, 0, 38, 38);
         labelContainer.origin.x += 12 + 38;
         labelContainer.size.width -= 12 + 38;
     }
@@ -181,10 +183,17 @@
     CGSize titleSize = [self.titleLabel sizeThatFits:labelContainer.size];
     self.titleLabel.frame = CGRectMake(labelContainer.origin.x, labelContainer.origin.y, titleSize.width, titleSize.height);
     
-    CGSize messageSize = [self.messageLabel sizeThatFits:labelContainer.size];
-    self.messageLabel.frame = CGRectMake(labelContainer.origin.x, labelContainer.origin.y + self.titleLabel.frame.size.height, messageSize.width, messageSize.height);
+    if (self.messageLabel.text) {
+        
+        CGSize messageSize = [self.messageLabel sizeThatFits:labelContainer.size];
+        self.messageLabel.frame = CGRectMake(labelContainer.origin.x, labelContainer.origin.y + self.titleLabel.frame.size.height + self.titleSpacing, messageSize.width, messageSize.height);
+        
+        self.frame = CGRectMake(0, -40, self.frame.size.width, MAX(CGRectGetMaxY(self.messageLabel.frame) + self.padding.bottom, 44));
+        
+    } else {
+        self.frame = CGRectMake(0, -40, self.frame.size.width, MAX(CGRectGetMaxY(self.titleLabel.frame) + self.padding.bottom, 44));
+    }
     
-    self.frame = CGRectMake(0, -40, self.frame.size.width, MAX(self.messageLabel.frame.origin.y + self.messageLabel.frame.size.height + kToastEdgeInsets.bottom,44));
     self.imageView.center = CGPointMake(self.imageView.center.x, self.frame.size.height/2);
 }
 
