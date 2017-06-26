@@ -154,6 +154,10 @@ RCT_EXPORT_METHOD(showToastWithTitle:(NSString *)title subtitle:(NSString *)subt
         if (config[@"titleSpacing"] && [config[@"titleSpacing"] isKindOfClass:[NSNumber class]]) {
             toastNotification.titleSpacing = [RCTConvert CGFloat:config[@"titleSpacing"]];
         }
+        
+        if (config[@"duration"] && [config[@"duration"] isKindOfClass:[NSNumber class]]) {
+            toastNotification.visibleDuration = [RCTConvert CGFloat:config[@"duration"]];
+        }
     }
     
     
